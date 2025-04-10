@@ -1,0 +1,53 @@
+echo "# FBLA-DATA-ANALYSIS" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/kevinliiiu/FBLA-DATA-ANALYSIS.git
+git push -u origin main
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+
+data = {
+    "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "PM2.5 (µg/m³)": [12, 14, 16, 20, 22, 35, 50, 48, 30, 20, 15, 13],
+    "Ozone (ppb)": [30, 28, 32, 40, 45, 55, 70, 68, 50, 38, 33, 29],
+    "NO2 (ppb)": [22, 24, 26, 28, 30, 35, 40, 39, 33, 27, 25, 23]
+}
+
+df = pd.DataFrame(data)
+
+
+# PM2.5 Trend
+plt.figure(figsize=(10,5))
+sns.lineplot(x=df["Month"], y=df["PM2.5 (µg/m³)"], marker="o", label="PM2.5")
+plt.title("Monthly PM2.5 Levels in NYC (2023)")
+plt.xlabel("Month")
+plt.ylabel("PM2.5 (µg/m³)")
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.show()
+
+plt.figure(figsize=(10,5))
+sns.lineplot(x=df["Month"], y=df["Ozone (ppb)"], marker="s", color="green", label="Ozone")
+plt.title("Monthly Ozone Levels in NYC (2023)")
+plt.xlabel("Month")
+plt.ylabel("Ozone (ppb)")
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.show()
+
+plt.figure(figsize=(10,5))
+sns.lineplot(x=df["Month"], y=df["NO2 (ppb)"], marker="^", color="red", label="NO2")
+plt.title("Monthly NO2 Levels in NYC (2023)")
+plt.xlabel("Month")
+plt.ylabel("NO2 (ppb)")
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.show()
+
+import ace_tools as tools
+tools.display_dataframe_to_user(name="NYC Air Quality Data (2023)", dataframe=df)
