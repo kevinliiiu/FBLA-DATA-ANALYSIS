@@ -1,0 +1,82 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import ace_tools as tools
+
+pm25_2023_data = {
+    "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "PM2.5 (µg/m³)": [12, 14, 16, 18, 22, 30, 55, 50, 35, 25, 18, 14]
+}
+
+pm25_2023_df = pd.DataFrame(pm25_2023_data)
+
+plt.figure(figsize=(10,5))
+sns.lineplot(x=pm25_2023_df["Month"], y=pm25_2023_df["PM2.5 (µg/m³)"], marker="o", color="orange", label="PM2.5 Levels")
+plt.title("Monthly PM2.5 Levels in NYC (2023)")
+plt.xlabel("Month")
+plt.ylabel("PM2.5 (µg/m³)")
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.legend()
+plt.show()
+
+aqi_2023_data = {
+    "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "AQI": [45, 50, 55, 65, 75, 120, 200, 180, 130, 90, 60, 50]
+}
+
+aqi_2023_df = pd.DataFrame(aqi_2023_data)
+
+plt.figure(figsize=(10,5))
+sns.lineplot(x=aqi_2023_df["Month"], y=aqi_2023_df["AQI"], marker="o", color="blue", label="AQI Level")
+plt.title("Air Quality Index (AQI) Trends in NYC (2023)")
+plt.xlabel("Month")
+plt.ylabel("AQI Level")
+plt.axhline(100, color="red", linestyle="--", label="Unhealthy AQI Threshold")
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.legend()
+plt.show()
+
+pollution_sources_2023 = {
+    "Source": ["Wildfires", "Vehicles", "Industries", "Power Plants", "Construction"],
+    "Contribution (%)": [45, 23, 12, 10, 10]
+}
+
+pollution_sources_2023_df = pd.DataFrame(pollution_sources_2023)
+
+plt.figure(figsize=(8,8))
+plt.pie(pollution_sources_2023_df["Contribution (%)"], labels=pollution_sources_2023_df["Source"], autopct="%1.1f%%", startangle=140, colors=["red", "blue", "green", "orange", "purple"])
+plt.title("Major Sources of Air Pollution in NYC (2023)")
+plt.show()
+
+seasonal_2023_data = {
+    "Season": ["Winter", "Spring", "Summer", "Fall"],
+    "PM2.5 (µg/m³)": [15, 18, 50, 30],
+    "Ozone (ppb)": [20, 35, 80, 40],
+    "NO2 (ppb)": [25, 28, 38, 30]
+}
+
+seasonal_2023_df = pd.DataFrame(seasonal_2023_data)
+
+plt.figure(figsize=(10,6))
+x = np.arange(len(seasonal_2023_df["Season"]))
+width = 0.25
+
+plt.bar(x - width, seasonal_2023_df["PM2.5 (µg/m³)"], width, label="PM2.5 (µg/m³)", color="orange")
+plt.bar(x, seasonal_2023_df["Ozone (ppb)"], width, label="Ozone (ppb)", color="green")
+plt.bar(x + width, seasonal_2023_df["NO2 (ppb)"], width, label="NO2 (ppb)", color="red")
+
+plt.xlabel("Season")
+plt.ylabel("Pollutant Levels")
+plt.title("Seasonal Variations in Air Pollution Levels in NYC (2023)")
+plt.xticks(ticks=x, labels=seasonal_2023_df["Season"])
+plt.legend()
+plt.grid(axis="y", linestyle="--", alpha=0.7)
+plt.show()
+
+tools.display_dataframe_to_user(name="Updated PM2.5 Data (2023)", dataframe=pm25_2023_df)
+tools.display_dataframe_to_user(name="Updated AQI Data (2023)", dataframe=aqi_2023_df)
+tools.display_dataframe_to_user(name="Updated Pollution Sources (2023)", dataframe=pollution_sources_2023_df)
+tools.display_dataframe_to_user(name="Updated Seasonal Pollution Data (2023)", dataframe=seasonal_2023_df)
