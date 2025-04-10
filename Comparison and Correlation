@@ -1,0 +1,44 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import ace_tools as tools
+
+aqi_comparison_data = {
+    "Year": ["2022", "2023"],
+    "Average AQI": [55, 80],  # Example values based on observed trends
+    "Number of Unhealthy AQI Days": [10, 45]  # Example increase due to wildfires
+}
+
+aqi_comparison_df = pd.DataFrame(aqi_comparison_data)
+
+plt.figure(figsize=(8,5))
+plt.bar(aqi_comparison_df["Year"], aqi_comparison_df["Average AQI"], color=["blue", "red"], label="Average AQI")
+plt.xlabel("Year")
+plt.ylabel("Average AQI Level")
+plt.title("NYC Air Quality: 2022 vs. 2023")
+plt.axhline(100, color="black", linestyle="--", label="Unhealthy AQI Threshold")
+plt.legend()
+plt.grid(axis="y", linestyle="--", alpha=0.7)
+plt.show()
+
+wildfire_correlation_data = {
+    "Date": ["June 1", "June 3", "June 6", "June 9", "June 12"],
+    "Smoke Intensity (µg/m³)": [10, 30, 80, 50, 20],  # Hypothetical values
+    "AQI Level": [50, 120, 250, 180, 90]  # Corresponding AQI values
+}
+
+wildfire_correlation_df = pd.DataFrame(wildfire_correlation_data)
+
+plt.figure(figsize=(8,5))
+sns.scatterplot(x=wildfire_correlation_df["Smoke Intensity (µg/m³)"], y=wildfire_correlation_df["AQI Level"], color="red", s=100)
+plt.title("Correlation Between Wildfire Smoke & AQI Spikes (June 2023)")
+plt.xlabel("Smoke Intensity (µg/m³)")
+plt.ylabel("AQI Level")
+plt.axhline(100, color="black", linestyle="--", label="Unhealthy AQI Threshold")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+tools.display_dataframe_to_user(name="NYC AQI Comparison (2022 vs. 2023)", dataframe=aqi_comparison_df)
+tools.display_dataframe_to_user(name="Wildfire Smoke vs. AQI Spikes (June 2023)", dataframe=wildfire_correlation_df
